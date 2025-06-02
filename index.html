@@ -5,93 +5,293 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creative Writing for Social Research - Final Projects</title>
     <style>
-        body {
-            font-family: 'Georgia', serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            color: #333;
-            background-color: #f9f9f7;
+        :root {
+            --paper: #f5f1e8;
+            --ink: #33322e;
+            --accent: #8c1515; /* UP maroon */
+            --highlight: #e3d8c1;
         }
+        
+        body {
+            font-family: 'Crimson Text', 'Georgia', serif;
+            line-height: 1.8;
+            margin: 0;
+            color: var(--ink);
+            background-color: var(--paper);
+        }
+        
         header {
             text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 20px;
+            padding: 3rem 2rem;
+            background-color: var(--accent);
+            color: white;
+            border-bottom: 8px double var(--highlight);
         }
+        
         h1 {
-            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
         }
+        
+        .subtitle {
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+        
+        .intro {
+            padding: 2rem;
+            font-size: 1.1rem;
+            border-bottom: 1px dashed var(--ink);
+            margin-bottom: 2rem;
+        }
+        
+        /* Mobile First: Horizontal Scrolling Cards */
+        .projects-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 1rem;
+            padding: 1rem;
+            -webkit-overflow-scrolling: touch;
+        }
+        
         .project {
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            min-width: 85%;
+            scroll-snap-align: start;
+            background: white;
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--accent);
+            display: flex;
+            flex-direction: column;
         }
-        .project a {
-            color: #2980b9;
+        
+        .project-image {
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project h3 {
+            margin: 0 0 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .project h3 a {
+            color: var(--ink);
             text-decoration: none;
-            font-weight: bold;
+            border-bottom: 1px solid transparent;
         }
-        .project a:hover {
-            text-decoration: underline;
+        
+        .project h3 a:hover {
+            border-bottom: 1px solid var(--accent);
         }
+        
         .project-author {
             font-style: italic;
-            color: #7f8c8d;
-            margin-top: -0.5em;
-            margin-bottom: 1em;
+            color: #666;
+            margin-bottom: 1rem;
             font-size: 0.95em;
         }
+        
+        .full-summary {
+            flex-grow: 1;
+            margin-bottom: 1rem;
+            cursor: pointer; /* Makes summary text clickable */
+        }
+        
+        .read-more {
+            display: inline-block;
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: auto;
+			padding-top: 1rem;
+        }
+        
+        /* Toggle Button Styling */
+        .toggle-summary {
+			text-align: center;
+            background: none;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            cursor: pointer;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.5rem 0;
+            transition: all 0.2s ease;
+        }
+        
+        .toggle-summary:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        /* Desktop Styles */
+        @media (min-width: 768px) {
+            body {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            
+            .projects-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                overflow-x: visible;
+                gap: 2rem;
+                padding: 0 2rem;
+            }
+            
+            .project {
+                min-width: auto;
+                transition: transform 0.3s ease;
+            }
+            
+            .project:hover {
+                transform: translateY(-5px);
+            }
+            
+            /* Expandable Summary for Desktop */
+            .full-summary {
+                display: none;
+            }
+            
+            .project-excerpt {
+                margin-bottom: 1rem;
+                cursor: pointer; /* Makes excerpt clickable */
+            }
+            
+            .project.active .full-summary {
+                display: block;
+            }
+            
+            .project.active .project-excerpt {
+                display: none;
+            }
+        }
+        
         footer {
             text-align: center;
-            margin-top: 40px;
-            color: #7f8c8d;
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+            color: #666;
             font-size: 0.9em;
+            border-top: 1px dashed var(--ink);
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <h1>Creative Writing for Social Research</h1>
-        <p>Final Projects Showcase</p>
+        <p class="subtitle">Final Projects Showcase</p>
     </header>
 
-    <main>
-        <section>
-            <p>Welcome to our class's final projects showcase! In "Creative Writing for Social Research," we explore arts-based methods in research, using creative writing as a tool for inquiry, analysis, and representation. These projects demonstrate how we've applied these approaches to examine social phenomena through poetry, fiction, creative nonfiction, and hybrid forms.</p>
-        </section>
+    <section class="intro">
+        <p>Welcome to our class's final projects showcase! In "Creative Writing for Social Research," we explore arts-based methods in research, using creative writing as a tool for inquiry, analysis, and representation. These projects demonstrate how we've applied these approaches to examine social phenomena through poetry, fiction, creative nonfiction, and hybrid forms.</p>
+    </section>
 
-        <section>
-            <h2>Projects</h2>
-            <div class="project">
-                <h3><a href=" https://downtownviews.art.blog/ ">Downtown Views</a></h3>
+    <div class="projects-container">
+        <article class="project">
+            <div class="project-image">
+                <a href="https://downtownviews.art.blog/" target="_blank"><img src="commute.jpg" alt="Urban commute scene"></a>
+            </div>
+            <div class="project-content">
+                <h3><a href="https://downtownviews.art.blog/">Downtown Views</a></h3>
                 <p class="project-author">Chelsey Ignacio</p>
-                <p>Commuters’ stories are central here in Downtown Views, offering a glimpse into the ups and downs of the current transportation system, as well as confessions on the costs of convenience. The participating commuters are employees with various work arrangements. They share their own photographs and writings featuring their travels to and/or from their offices in selected CBDs across Metro Manila. Employing a mix of ekphrastic and experiential methodologies, Downtown Views seeks to capture more raw and diverse insights and sentiments on metropolitan mobility and city centers, where urban development has long been marred by socioeconomic inequities.
-</p>
+                <div class="project-excerpt">
+                    <p>Commuters' stories offering a glimpse into the current transportation system and the costs of convenience through photographs and writings...</p>
+                </div>
+                <div class="full-summary">
+                    <p>Commuters' stories are central here in Downtown Views, offering a glimpse into the ups and downs of the current transportation system, as well as confessions on the costs of convenience. The participating commuters are employees with various work arrangements. They share their own photographs and writings featuring their travels to and/or from their offices in selected CBDs across Metro Manila. Employing a mix of ekphrastic and experiential methodologies, Downtown Views seeks to capture more raw and diverse insights and sentiments on metropolitan mobility and city centers, where urban development has long been marred by socioeconomic inequities.</p>
+                </div>
+                <button class="toggle-summary" aria-label="Toggle summary">+</button>
+                <a href="https://downtownviews.art.blog/" class="read-more" target="_blank">Visit project →</a>
             </div>
+        </article>
 
-            <div class="project">
-                <h3><a href="https://drive.google.com/drive/folders/1FxeecFoOPy8Ps_EiknLWG8zkeLjL4y3j">Her Voice, Her Choice</a></h3>
+        <article class="project">
+            <div class="project-image">
+                <a href="https://xyhtamura.github.io/istorya-sang-balatyagon" target="_blank"><img src="voice.jpeg" alt="Women's voices matter"></a>
+            </div>
+            <div class="project-content">
+                <h3><a href="https://drive.google.com/drive/folders/1FxeecFoOPy8Ps_EiknLWG8zkeLjL4y3j" target="_blank">Her Voice, Her Choice</a></h3>
                 <p class="project-author">Christine Sejera</p>
-                <p>This project is an offshoot of the proponent’s previous communication study that examined the media's portrayal of women in the 2022 Philippine National Elections. Building on these findings, this project investigates the perceptions of Filipino women voters regarding the 2022 elections, focusing on the social, cultural, economic, and political factors and their voting decisions concerning Leni Robredo and Sara Duterte. The aim is to understand how these factors shaped their views and ultimately their votes, contributing to a more nuanced understanding of women's political participation and the impact of gendered narratives. It employed an unstructured interview approach combined with photovoice to express the three Filipino women voters’ experiences related to the 2022 Philippine National Elections, offering insights into their perspectives rooted in their daily lives, aspirations, values, and cultural pressures. </p>
+                <div class="project-excerpt">
+                    <p>Investigating Filipino women voters' perceptions of the 2022 elections through interviews and photovoice...</p>
+                </div>
+                <div class="full-summary">
+                    <p>This project is an offshoot of the proponent's previous communication study that examined the media's portrayal of women in the 2022 Philippine National Elections. Building on these findings, this project investigates the perceptions of Filipino women voters regarding the 2022 elections, focusing on the social, cultural, economic, and political factors and their voting decisions concerning Leni Robredo and Sara Duterte. The aim is to understand how these factors shaped their views and ultimately their votes, contributing to a more nuanced understanding of women's political participation and the impact of gendered narratives. It employed an unstructured interview approach combined with photovoice to express the three Filipino women voters' experiences related to the 2022 Philippine National Elections, offering insights into their perspectives rooted in their daily lives, aspirations, values, and cultural pressures.</p>
+                </div>
+                <button class="toggle-summary" aria-label="Toggle summary">+</button>
+                <a href="https://drive.google.com/drive/folders/1FxeecFoOPy8Ps_EiknLWG8zkeLjL4y3j" class="read-more" target="_blank">View project →</a>
             </div>
-            
-            <div class="project">
-                <h3><a href="https://xyhtamura.github.io/istorya-sang-balatyagon">Istorya sang Bȧlatyagon</a></h3>
+        </article>
+
+        <article class="project">
+            <div class="project-image">
+               <a href="https://xyhtamura.github.io/istorya-sang-balatyagon" target="_blank"> <img src="https://xyhtamura.github.io/istorya-sang-balatyagon/img/02.png" alt="Menstrual health awareness"></a>
+            </div>
+            <div class="project-content">
+                <h3><a href="https://xyhtamura.github.io/istorya-sang-balatyagon" target="_blank">Istorya sang Bȧlatyagon</a></h3>
                 <p class="project-author">Xyh Tamura</p>
-                <p>A menstrual health awareness project for Panay communities, developed as part of the Atipan+ Gender Audit 2025. The research explores how socio-cultural factors shape menstrual experiences, using a creative, participatory methodology that blends storytelling, visual mapping, and performance to challenge stigma and amplify rural communities. This arts-based approach fosters open dialogue while centering the lived experiences of women and menstruators in rural Philippines.</p>
+                <div class="project-excerpt">
+                    <p>A menstrual health awareness project blending storytelling, visual mapping, and performance to challenge stigma...</p>
+                </div>
+                <div class="full-summary">
+                    <p>A menstrual health awareness project for Panay communities, developed as part of the Atipan+ Gender Audit 2025. The research explores how socio-cultural factors shape menstrual experiences, using a creative, participatory methodology that blends storytelling, visual mapping, and performance to challenge stigma and amplify rural communities. This arts-based approach fosters open dialogue while centering the lived experiences of women and menstruators in rural Philippines.</p>
+                </div>
+                <button class="toggle-summary" aria-label="Toggle summary">+</button>
+                <a href="https://xyhtamura.github.io/istorya-sang-balatyagon" class="read-more" target="_blank">Visit project →</a>
             </div>
-            
-            
-            <!-- Add more projects as needed -->
-        </section>
-    </main>
+        </article>
+    </div>
 
     <footer>
-        <p>Creative Writing for Social Research | University of the Philippines Diliman | AY 2024-2025, 2nd Semester</p>
+        <p>Creative Writing for Social Research | University of the Philippines Diliman<br>
+        AY 2024-2025, 2nd Semester under Marby Villaceran</p>
     </footer>
+
+    <script>
+        // Only add toggle functionality on desktop
+        if (window.matchMedia("(min-width: 768px)").matches) {
+            document.querySelectorAll('.toggle-summary, .project-excerpt, .full-summary').forEach(element => {
+                element.addEventListener('click', (e) => {
+                    // Prevent nested clicks (e.g., clicking link inside summary)
+                    if (e.target.tagName === 'A') return;
+                    
+                    const project = e.target.closest('.project');
+                    const button = project.querySelector('.toggle-summary');
+                    
+                    project.classList.toggle('active');
+                    
+                    if (project.classList.contains('active')) {
+                        button.textContent = '−'; // Minus sign
+                    } else {
+                        button.textContent = '+'; // Plus sign
+                    }
+                });
+            });
+        }
+    </script>
 </body>
 </html>
